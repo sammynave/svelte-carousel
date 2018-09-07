@@ -1,0 +1,53 @@
+<div class="slider-viewport" style="min-height: {minHeight}">
+  <div class="slider" style="transform: translateX({translate});">
+    <div style="width: {width};">
+      {#each slides as slide, i}
+        <Slide {slide} width={slideWidth} position={i}/>
+      {/each}
+    </div>
+  </div>
+</div>
+
+<button on:click="set({ current: current - 1})">last</button>
+<button on:click="set({ current: current + 1})">next</button>
+
+{current}
+
+<style>
+  .slider-viewport {
+    overflow: hidden;
+    position: relative;
+  }
+
+  .slider {
+    left: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transition: all 2500ms;
+  }
+</style>
+
+<script>
+  import Slide from './Slide.html';
+
+  export default {
+    components: { Slide },
+    data() {
+      return {
+        current: 0
+      }
+    },
+    oncreate() {
+      const { slides } = this.get();
+      this.set({ total: slides.length });
+    },
+
+    computed: {
+      translate: ({ current }) => `${-(current * 100)}%`,
+      slideWidth: ({ total }) => 100 / total,
+      width: ({ total }) => `${100 * total}%`,
+      minHeight: ({ slides, current }) => `${slides[current].getBoundingClientRect().height}px`
+    }
+  };
+</script>

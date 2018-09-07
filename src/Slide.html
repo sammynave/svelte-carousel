@@ -1,0 +1,23 @@
+<div ref:slide style="left: {left};">
+</div>
+
+<style>
+  ref:slide {
+    position: absolute;
+    width: 100%;
+  }
+</style>
+
+<script>
+  export default {
+    oncreate() {
+      const { slide } = this.get();
+      this.refs.slide.appendChild(slide);
+    },
+
+    computed: {
+      left: ({ position }) => `${position * 100}%`
+    }
+  };
+
+</script>
