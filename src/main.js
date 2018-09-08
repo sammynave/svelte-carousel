@@ -1,4 +1,4 @@
-import Carousel from './components/Carousel.html';
+import { Carousel } from './index.js';
 
 const target = document.getElementById('Carousel');
 
