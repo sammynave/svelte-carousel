@@ -10,7 +10,7 @@ export default {
   output: {
     sourcemap: true,
     file: 'dist/index.js',
-    format: 'umd',
+    format: 'es',
     name: 'svelte-carousel'
   },
   plugins: [
@@ -25,7 +25,8 @@ export default {
       // a separate file — better for performance
       css: css => {
         css.write('public/bundle.css');
-      }
+      },
+      include: 'src/components/**/*.html'
     }),
 
     // If you have external dependencies installed from
