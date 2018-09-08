@@ -1,2 +1,625 @@
-!function(t,e){"object"==typeof exports&&"undefined"!=typeof module?module.exports=e():"function"==typeof define&&define.amd?define(e):t["svelte-carousel"]=e()}(this,function(){"use strict";function t(){}function e(t,e){for(var i in e)t[i]=e[i];return t}function i(t,e){for(var i in e)t[i]=1;return t}function n(t){t()}function s(t,e){t.appendChild(e)}function r(t,e,i){t.insertBefore(e,i)}function o(t){t.parentNode.removeChild(t)}function a(t){return document.createElement(t)}function h(t){return document.createTextNode(t)}function c(t,e,i){t.addEventListener(e,i,!1)}function f(t,e,i){t.removeEventListener(e,i,!1)}function l(t,e,i){t.style.setProperty(e,i)}function u(){return Object.create(null)}function d(t){t._lock=!0,g(t._beforecreate),g(t._oncreate),g(t._aftercreate),t._lock=!1}function _(t,e){t._handlers=u(),t._slots=u(),t._bind=e._bind,t._staged={},t.options=e,t.root=e.root||t,t.store=e.store||t.root.store,e.root||(t._beforecreate=[],t._oncreate=[],t._aftercreate=[])}function g(t){for(;t&&t.length;)t.shift()()}var m={destroy:function(e){this.destroy=t,this.fire("destroy"),this.set=t,this._fragment.d(!1!==e),this._fragment=null,this._state={}},get:function(){return this._state},fire:function(t,e){var i=t in this._handlers&&this._handlers[t].slice();if(i)for(var n=0;n<i.length;n+=1){var s=i[n];if(!s.__calling)try{s.__calling=!0,s.call(this,e)}finally{s.__calling=!1}}},on:function(t,e){var i=this._handlers[t]||(this._handlers[t]=[]);return i.push(e),{cancel:function(){var t=i.indexOf(e);~t&&i.splice(t,1)}}},set:function(t){this._set(e({},t)),this.root._lock||d(this.root)},_recompute:t,_set:function(t){var i=this._state,n={},s=!1;for(var r in t=e(this._staged,t),this._staged={},t)this._differs(t[r],i[r])&&(n[r]=s=!0);s&&(this._state=e(e({},i),t),this._recompute(n,this._state),this._bind&&this._bind(n,this._state),this._fragment&&(this.fire("state",{changed:n,current:this._state,previous:i}),this._fragment.p(n,this._state),this.fire("update",{changed:n,current:this._state,previous:i})))},_stage:function(t){e(this._staged,t)},_mount:function(t,e){this._fragment[this._fragment.i?"i":"m"](t,e||null)},_differs:function(t,e){return t!=t?e==e:t!==e||t&&"object"==typeof t||"function"==typeof t}};function p(t){var s,h,c,f;_(this,t),this.refs={},this._state=e({},t.data),this._recompute({position:1},this._state),this._intro=!!t.intro,this._fragment=(s=this,h=this._state,{c(){l(c=a("div"),"left",h.left),c.className="svelte-jy0zwf svelte-ref-slide"},m(t,e){r(t,c,e),s.refs.slide=c,f=!0},p(t,e){t.left&&l(c,"left",e.left)},i(t,e){f||this.m(t,e)},o:n,d(t){t&&o(c),s.refs.slide===c&&(s.refs.slide=null)}}),this.root._oncreate.push(()=>{(function(){const{slide:t}=this.get();this.refs.slide.appendChild(t)}).call(this),this.fire("update",{changed:i({},this._state),current:this._state})}),t.target&&(this._fragment.c(),this._mount(t.target,t.anchor),d(this)),this._intro=!0}function v(t,e){var i,n={slide:e.slide,width:e.slideWidth,position:e.i},s=new p({root:t.root,store:t.store,data:n});return{c(){s._fragment.c()},m(t,e){s._mount(t,e),i=!0},p(t,e){var i={};t.slides&&(i.slide=e.slide),t.slideWidth&&(i.width=e.slideWidth),s._set(i)},i(t,e){i||this.m(t,e)},o(t){i&&(s&&s._fragment.o(t),i=!1)},d(t){s.destroy(t)}}}function y(t,e,i){const n=Object.create(t);return n.slide=e[i],n.each_value=e,n.i=i,n}function w(t){_(this,t),this._state=e({current:0},t.data),this._recompute({current:1,total:1,slides:1},this._state),this._intro=!!t.intro,this._fragment=function(t,e){for(var i,n,u,d,_,g,m,p,w,b,x=e.slides,k=[],C=0;C<x.length;C+=1)k[C]=v(t,y(e,x,C));function W(t,e,i){k[t]&&k[t].o(()=>{e&&(k[t].d(e),k[t]=null),i&&i()})}function H(i){t.set({current:e.current-1})}function j(i){t.set({current:e.current+1})}return{c(){i=a("div"),n=a("div"),u=a("div");for(var t=0;t<k.length;t+=1)k[t].c();d=h("\n\n"),(_=a("button")).textContent="last",g=h("\n"),(m=a("button")).textContent="next",p=h("\n\n"),w=h(e.current),l(u,"width",e.width),n.className="slider svelte-1laoxch",l(n,"transform","translateX("+e.translate+")"),i.className="slider-viewport svelte-1laoxch",l(i,"min-height",e.minHeight),c(_,"click",H),c(m,"click",j)},m(t,e){r(t,i,e),s(i,n),s(n,u);for(var o=0;o<k.length;o+=1)k[o].i(u,null);r(t,d,e),r(t,_,e),r(t,g,e),r(t,m,e),r(t,p,e),r(t,w,e),b=!0},p(s,r){if(e=r,s.slides||s.slideWidth){x=e.slides;for(var o=0;o<x.length;o+=1){const i=y(e,x,o);k[o]?k[o].p(s,i):(k[o]=v(t,i),k[o].c()),k[o].i(u,null)}for(;o<k.length;o+=1)W(o,1)}var a,h;b&&!s.width||l(u,"width",e.width),b&&!s.translate||l(n,"transform","translateX("+e.translate+")"),b&&!s.minHeight||l(i,"min-height",e.minHeight),b&&!s.current||(a=w,h=e.current,a.data=""+h)},i(t,e){b||this.m(t,e)},o(t){if(!b)return;k=k.filter(Boolean);const e=(i=t,0===(n=k.length)&&i(),()=>{--n||i()});var i,n;for(let t=0;t<k.length;t+=1)W(t,0,e);b=!1},d(t){t&&o(i),function(t,e){for(var i=0;i<t.length;i+=1)t[i]&&t[i].d(e)}(k,t),t&&(o(d),o(_)),f(_,"click",H),t&&(o(g),o(m)),f(m,"click",j),t&&(o(p),o(w))}}}(this,this._state),this.root._oncreate.push(()=>{(function(){const{slides:t}=this.get();this.set({total:t.length})}).call(this),this.fire("update",{changed:i({},this._state),current:this._state})}),t.target&&(this._fragment.c(),this._mount(t.target,t.anchor),d(this)),this._intro=!0}return e(p.prototype,m),p.prototype._recompute=function(t,e){t.position&&this._differs(e.left,e.left=function({position:t}){return`${100*t}%`}(e))&&(t.left=!0)},e(w.prototype,m),w.prototype._recompute=function(t,e){t.current&&this._differs(e.translate,e.translate=function({current:t}){return`${-100*t}%`}(e))&&(t.translate=!0),t.total&&(this._differs(e.slideWidth,e.slideWidth=function({total:t}){return 100/t}(e))&&(t.slideWidth=!0),this._differs(e.width,e.width=function({total:t}){return`${100*t}%`}(e))&&(t.width=!0)),(t.slides||t.current)&&this._differs(e.minHeight,e.minHeight=function({slides:t,current:e}){return`${t[e].getBoundingClientRect().height}px`}(e))&&(t.minHeight=!0)},{Carousel:w,Slide:p}});
+function noop() {}
+
+function assign(tar, src) {
+	for (var k in src) tar[k] = src[k];
+	return tar;
+}
+
+function assignTrue(tar, src) {
+	for (var k in src) tar[k] = 1;
+	return tar;
+}
+
+function callAfter(fn, i) {
+	if (i === 0) fn();
+	return () => {
+		if (!--i) fn();
+	};
+}
+
+function addLoc(element, file, line, column, char) {
+	element.__svelte_meta = {
+		loc: { file, line, column, char }
+	};
+}
+
+function run(fn) {
+	fn();
+}
+
+function append(target, node) {
+	target.appendChild(node);
+}
+
+function insert(target, node, anchor) {
+	target.insertBefore(node, anchor);
+}
+
+function detachNode(node) {
+	node.parentNode.removeChild(node);
+}
+
+function destroyEach(iterations, detach) {
+	for (var i = 0; i < iterations.length; i += 1) {
+		if (iterations[i]) iterations[i].d(detach);
+	}
+}
+
+function createElement(name) {
+	return document.createElement(name);
+}
+
+function createText(data) {
+	return document.createTextNode(data);
+}
+
+function addListener(node, event, handler) {
+	node.addEventListener(event, handler, false);
+}
+
+function removeListener(node, event, handler) {
+	node.removeEventListener(event, handler, false);
+}
+
+function setData(text, data) {
+	text.data = '' + data;
+}
+
+function setStyle(node, key, value) {
+	node.style.setProperty(key, value);
+}
+
+function blankObject() {
+	return Object.create(null);
+}
+
+function destroy(detach) {
+	this.destroy = noop;
+	this.fire('destroy');
+	this.set = noop;
+
+	this._fragment.d(detach !== false);
+	this._fragment = null;
+	this._state = {};
+}
+
+function destroyDev(detach) {
+	destroy.call(this, detach);
+	this.destroy = function() {
+		console.warn('Component was already destroyed');
+	};
+}
+
+function _differs(a, b) {
+	return a != a ? b == b : a !== b || ((a && typeof a === 'object') || typeof a === 'function');
+}
+
+function fire(eventName, data) {
+	var handlers =
+		eventName in this._handlers && this._handlers[eventName].slice();
+	if (!handlers) return;
+
+	for (var i = 0; i < handlers.length; i += 1) {
+		var handler = handlers[i];
+
+		if (!handler.__calling) {
+			try {
+				handler.__calling = true;
+				handler.call(this, data);
+			} finally {
+				handler.__calling = false;
+			}
+		}
+	}
+}
+
+function flush(component) {
+	component._lock = true;
+	callAll(component._beforecreate);
+	callAll(component._oncreate);
+	callAll(component._aftercreate);
+	component._lock = false;
+}
+
+function get() {
+	return this._state;
+}
+
+function init(component, options) {
+	component._handlers = blankObject();
+	component._slots = blankObject();
+	component._bind = options._bind;
+	component._staged = {};
+
+	component.options = options;
+	component.root = options.root || component;
+	component.store = options.store || component.root.store;
+
+	if (!options.root) {
+		component._beforecreate = [];
+		component._oncreate = [];
+		component._aftercreate = [];
+	}
+}
+
+function on(eventName, handler) {
+	var handlers = this._handlers[eventName] || (this._handlers[eventName] = []);
+	handlers.push(handler);
+
+	return {
+		cancel: function() {
+			var index = handlers.indexOf(handler);
+			if (~index) handlers.splice(index, 1);
+		}
+	};
+}
+
+function set(newState) {
+	this._set(assign({}, newState));
+	if (this.root._lock) return;
+	flush(this.root);
+}
+
+function _set(newState) {
+	var oldState = this._state,
+		changed = {},
+		dirty = false;
+
+	newState = assign(this._staged, newState);
+	this._staged = {};
+
+	for (var key in newState) {
+		if (this._differs(newState[key], oldState[key])) changed[key] = dirty = true;
+	}
+	if (!dirty) return;
+
+	this._state = assign(assign({}, oldState), newState);
+	this._recompute(changed, this._state);
+	if (this._bind) this._bind(changed, this._state);
+
+	if (this._fragment) {
+		this.fire("state", { changed: changed, current: this._state, previous: oldState });
+		this._fragment.p(changed, this._state);
+		this.fire("update", { changed: changed, current: this._state, previous: oldState });
+	}
+}
+
+function _stage(newState) {
+	assign(this._staged, newState);
+}
+
+function setDev(newState) {
+	if (typeof newState !== 'object') {
+		throw new Error(
+			this._debugName + '.set was called without an object of data key-values to update.'
+		);
+	}
+
+	this._checkReadOnly(newState);
+	set.call(this, newState);
+}
+
+function callAll(fns) {
+	while (fns && fns.length) fns.shift()();
+}
+
+function _mount(target, anchor) {
+	this._fragment[this._fragment.i ? 'i' : 'm'](target, anchor || null);
+}
+
+var protoDev = {
+	destroy: destroyDev,
+	get,
+	fire,
+	on,
+	set: setDev,
+	_recompute: noop,
+	_set,
+	_stage,
+	_mount,
+	_differs
+};
+
+/* src/components/Slide.html generated by Svelte v2.13.2 */
+
+function left({ position }) {
+	return `${position * 100}%`;
+}
+
+function oncreate() {
+  const { slide } = this.get();
+  this.refs.slide.appendChild(slide);
+}
+const file = "src/components/Slide.html";
+
+function create_main_fragment(component, ctx) {
+	var div, current;
+
+	return {
+		c: function create() {
+			div = createElement("div");
+			setStyle(div, "left", ctx.left);
+			div.className = "svelte-jy0zwf svelte-ref-slide";
+			addLoc(div, file, 0, 0, 0);
+		},
+
+		m: function mount(target, anchor) {
+			insert(target, div, anchor);
+			component.refs.slide = div;
+			current = true;
+		},
+
+		p: function update(changed, ctx) {
+			if (changed.left) {
+				setStyle(div, "left", ctx.left);
+			}
+		},
+
+		i: function intro(target, anchor) {
+			if (current) return;
+
+			this.m(target, anchor);
+		},
+
+		o: run,
+
+		d: function destroy$$1(detach) {
+			if (detach) {
+				detachNode(div);
+			}
+
+			if (component.refs.slide === div) component.refs.slide = null;
+		}
+	};
+}
+
+function Slide(options) {
+	this._debugName = '<Slide>';
+	if (!options || (!options.target && !options.root)) throw new Error("'target' is a required option");
+	init(this, options);
+	this.refs = {};
+	this._state = assign({}, options.data);
+	this._recompute({ position: 1 }, this._state);
+	if (!('position' in this._state)) console.warn("<Slide> was created without expected data property 'position'");
+	this._intro = !!options.intro;
+
+	this._fragment = create_main_fragment(this, this._state);
+
+	this.root._oncreate.push(() => {
+		oncreate.call(this);
+		this.fire("update", { changed: assignTrue({}, this._state), current: this._state });
+	});
+
+	if (options.target) {
+		if (options.hydrate) throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+		this._fragment.c();
+		this._mount(options.target, options.anchor);
+
+		flush(this);
+	}
+
+	this._intro = true;
+}
+
+assign(Slide.prototype, protoDev);
+
+Slide.prototype._checkReadOnly = function _checkReadOnly(newState) {
+	if ('left' in newState && !this._updatingReadonlyProperty) throw new Error("<Slide>: Cannot set read-only property 'left'");
+};
+
+Slide.prototype._recompute = function _recompute(changed, state) {
+	if (changed.position) {
+		if (this._differs(state.left, (state.left = left(state)))) changed.left = true;
+	}
+};
+
+/* src/components/Carousel.html generated by Svelte v2.13.2 */
+
+function translate({ current }) {
+	return `${-(current * 100)}%`;
+}
+
+function slideWidth({ total }) {
+	return 100 / total;
+}
+
+function width({ total }) {
+	return `${100 * total}%`;
+}
+
+function minHeight({ slides, current }) {
+	return `${slides[current].getBoundingClientRect().height}px`;
+}
+
+function data() {
+  return {
+    current: 0
+  }
+}
+function oncreate$1() {
+  const { slides } = this.get();
+  this.set({ total: slides.length });
+}
+const file$1 = "src/components/Carousel.html";
+
+function create_main_fragment$1(component, ctx) {
+	var div, div_1, div_2, text_3, button, text_4, text_5, button_1, text_6, text_7, text_8, current;
+
+	var each_value = ctx.slides;
+
+	var each_blocks = [];
+
+	for (var i = 0; i < each_value.length; i += 1) {
+		each_blocks[i] = create_each_block(component, get_each_context(ctx, each_value, i));
+	}
+
+	function outroBlock(i, detach, fn) {
+		if (each_blocks[i]) {
+			each_blocks[i].o(() => {
+				if (detach) {
+					each_blocks[i].d(detach);
+					each_blocks[i] = null;
+				}
+				if (fn) fn();
+			});
+		}
+	}
+
+	function click_handler(event) {
+		component.set({ current: ctx.current - 1});
+	}
+
+	function click_handler_1(event) {
+		component.set({ current: ctx.current + 1});
+	}
+
+	return {
+		c: function create() {
+			div = createElement("div");
+			div_1 = createElement("div");
+			div_2 = createElement("div");
+
+			for (var i = 0; i < each_blocks.length; i += 1) {
+				each_blocks[i].c();
+			}
+
+			text_3 = createText("\n\n");
+			button = createElement("button");
+			text_4 = createText("last");
+			text_5 = createText("\n");
+			button_1 = createElement("button");
+			text_6 = createText("next");
+			text_7 = createText("\n\n");
+			text_8 = createText(ctx.current);
+			setStyle(div_2, "width", ctx.width);
+			addLoc(div_2, file$1, 2, 4, 133);
+			div_1.className = "slider svelte-1laoxch";
+			setStyle(div_1, "transform", "translateX(" + ctx.translate + ")");
+			addLoc(div_1, file$1, 1, 2, 64);
+			div.className = "slider-viewport svelte-1laoxch";
+			setStyle(div, "min-height", ctx.minHeight);
+			addLoc(div, file$1, 0, 0, 0);
+			addListener(button, "click", click_handler);
+			addLoc(button, file$1, 10, 0, 295);
+			addListener(button_1, "click", click_handler_1);
+			addLoc(button_1, file$1, 11, 0, 357);
+		},
+
+		m: function mount(target, anchor) {
+			insert(target, div, anchor);
+			append(div, div_1);
+			append(div_1, div_2);
+
+			for (var i = 0; i < each_blocks.length; i += 1) {
+				each_blocks[i].i(div_2, null);
+			}
+
+			insert(target, text_3, anchor);
+			insert(target, button, anchor);
+			append(button, text_4);
+			insert(target, text_5, anchor);
+			insert(target, button_1, anchor);
+			append(button_1, text_6);
+			insert(target, text_7, anchor);
+			insert(target, text_8, anchor);
+			current = true;
+		},
+
+		p: function update(changed, _ctx) {
+			ctx = _ctx;
+			if (changed.slides || changed.slideWidth) {
+				each_value = ctx.slides;
+
+				for (var i = 0; i < each_value.length; i += 1) {
+					const child_ctx = get_each_context(ctx, each_value, i);
+
+					if (each_blocks[i]) {
+						each_blocks[i].p(changed, child_ctx);
+					} else {
+						each_blocks[i] = create_each_block(component, child_ctx);
+						each_blocks[i].c();
+					}
+					each_blocks[i].i(div_2, null);
+				}
+				for (; i < each_blocks.length; i += 1) outroBlock(i, 1);
+			}
+
+			if (!current || changed.width) {
+				setStyle(div_2, "width", ctx.width);
+			}
+
+			if (!current || changed.translate) {
+				setStyle(div_1, "transform", "translateX(" + ctx.translate + ")");
+			}
+
+			if (!current || changed.minHeight) {
+				setStyle(div, "min-height", ctx.minHeight);
+			}
+
+			if (!current || changed.current) {
+				setData(text_8, ctx.current);
+			}
+		},
+
+		i: function intro(target, anchor) {
+			if (current) return;
+
+			this.m(target, anchor);
+		},
+
+		o: function outro(outrocallback) {
+			if (!current) return;
+
+			each_blocks = each_blocks.filter(Boolean);
+			const countdown = callAfter(outrocallback, each_blocks.length);
+			for (let i = 0; i < each_blocks.length; i += 1) outroBlock(i, 0, countdown);
+
+			current = false;
+		},
+
+		d: function destroy$$1(detach) {
+			if (detach) {
+				detachNode(div);
+			}
+
+			destroyEach(each_blocks, detach);
+
+			if (detach) {
+				detachNode(text_3);
+				detachNode(button);
+			}
+
+			removeListener(button, "click", click_handler);
+			if (detach) {
+				detachNode(text_5);
+				detachNode(button_1);
+			}
+
+			removeListener(button_1, "click", click_handler_1);
+			if (detach) {
+				detachNode(text_7);
+				detachNode(text_8);
+			}
+		}
+	};
+}
+
+// (4:6) {#each slides as slide, i}
+function create_each_block(component, ctx) {
+	var current;
+
+	var slide_initial_data = {
+	 	slide: ctx.slide,
+	 	width: ctx.slideWidth,
+	 	position: ctx.i
+	 };
+	var slide = new Slide({
+		root: component.root,
+		store: component.store,
+		data: slide_initial_data
+	});
+
+	return {
+		c: function create() {
+			slide._fragment.c();
+		},
+
+		m: function mount(target, anchor) {
+			slide._mount(target, anchor);
+			current = true;
+		},
+
+		p: function update(changed, ctx) {
+			var slide_changes = {};
+			if (changed.slides) slide_changes.slide = ctx.slide;
+			if (changed.slideWidth) slide_changes.width = ctx.slideWidth;
+			slide._set(slide_changes);
+		},
+
+		i: function intro(target, anchor) {
+			if (current) return;
+
+			this.m(target, anchor);
+		},
+
+		o: function outro(outrocallback) {
+			if (!current) return;
+
+			if (slide) slide._fragment.o(outrocallback);
+			current = false;
+		},
+
+		d: function destroy$$1(detach) {
+			slide.destroy(detach);
+		}
+	};
+}
+
+function get_each_context(ctx, list, i) {
+	const child_ctx = Object.create(ctx);
+	child_ctx.slide = list[i];
+	child_ctx.each_value = list;
+	child_ctx.i = i;
+	return child_ctx;
+}
+
+function Carousel(options) {
+	this._debugName = '<Carousel>';
+	if (!options || (!options.target && !options.root)) throw new Error("'target' is a required option");
+	init(this, options);
+	this._state = assign(data(), options.data);
+	this._recompute({ current: 1, total: 1, slides: 1 }, this._state);
+	if (!('current' in this._state)) console.warn("<Carousel> was created without expected data property 'current'");
+	if (!('total' in this._state)) console.warn("<Carousel> was created without expected data property 'total'");
+	if (!('slides' in this._state)) console.warn("<Carousel> was created without expected data property 'slides'");
+	this._intro = !!options.intro;
+
+	this._fragment = create_main_fragment$1(this, this._state);
+
+	this.root._oncreate.push(() => {
+		oncreate$1.call(this);
+		this.fire("update", { changed: assignTrue({}, this._state), current: this._state });
+	});
+
+	if (options.target) {
+		if (options.hydrate) throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+		this._fragment.c();
+		this._mount(options.target, options.anchor);
+
+		flush(this);
+	}
+
+	this._intro = true;
+}
+
+assign(Carousel.prototype, protoDev);
+
+Carousel.prototype._checkReadOnly = function _checkReadOnly(newState) {
+	if ('translate' in newState && !this._updatingReadonlyProperty) throw new Error("<Carousel>: Cannot set read-only property 'translate'");
+	if ('slideWidth' in newState && !this._updatingReadonlyProperty) throw new Error("<Carousel>: Cannot set read-only property 'slideWidth'");
+	if ('width' in newState && !this._updatingReadonlyProperty) throw new Error("<Carousel>: Cannot set read-only property 'width'");
+	if ('minHeight' in newState && !this._updatingReadonlyProperty) throw new Error("<Carousel>: Cannot set read-only property 'minHeight'");
+};
+
+Carousel.prototype._recompute = function _recompute(changed, state) {
+	if (changed.current) {
+		if (this._differs(state.translate, (state.translate = translate(state)))) changed.translate = true;
+	}
+
+	if (changed.total) {
+		if (this._differs(state.slideWidth, (state.slideWidth = slideWidth(state)))) changed.slideWidth = true;
+		if (this._differs(state.width, (state.width = width(state)))) changed.width = true;
+	}
+
+	if (changed.slides || changed.current) {
+		if (this._differs(state.minHeight, (state.minHeight = minHeight(state)))) changed.minHeight = true;
+	}
+};
+
+var index = {
+  Carousel,
+  Slide
+};
+
+export default index;
 //# sourceMappingURL=index.js.map
