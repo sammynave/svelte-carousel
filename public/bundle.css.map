@@ -2,8 +2,8 @@
   "version": 3,
   "file": "bundle.css",
   "sources": [
-    "../src/Carousel.html",
-    "../src/Slide.html"
+    "../src/components/Carousel.html",
+    "../src/components/Slide.html"
   ],
   "sourcesContent": [
     "<div class=\"slider-viewport\" style=\"min-height: {minHeight}\">\n  <div class=\"slider\" style=\"transform: translateX({translate});\">\n    <div style=\"width: {width};\">\n      {#each slides as slide, i}\n        <Slide {slide} width={slideWidth} position={i}/>\n      {/each}\n    </div>\n  </div>\n</div>\n\n<button on:click=\"set({ current: current - 1})\">last</button>\n<button on:click=\"set({ current: current + 1})\">next</button>\n\n{current}\n\n<style>\n  .slider-viewport {\n    overflow: hidden;\n    position: relative;\n  }\n\n  .slider {\n    left: 0;\n    position: absolute;\n    width: 100%;\n    height: 100%;\n    transition: all 2500ms;\n  }\n</style>\n\n<script>\n  import Slide from './Slide.html';\n\n  export default {\n    components: { Slide },\n    data() {\n      return {\n        current: 0\n      }\n    },\n    oncreate() {\n      const { slides } = this.get();\n      this.set({ total: slides.length });\n    },\n\n    computed: {\n      translate: ({ current }) => `${-(current * 100)}%`,\n      slideWidth: ({ total }) => 100 / total,\n      width: ({ total }) => `${100 * total}%`,\n      minHeight: ({ slides, current }) => `${slides[current].getBoundingClientRect().height}px`\n    }\n  };\n</script>\n",
