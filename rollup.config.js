@@ -10,7 +10,7 @@ export default {
   output: {
     sourcemap: true,
     file: 'dist/index.js',
-    format: 'es',
+    format: 'umd',
     name: 'svelte-carousel'
   },
   plugins: [
