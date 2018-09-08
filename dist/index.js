@@ -616,10 +616,5 @@ Carousel.prototype._recompute = function _recompute(changed, state) {
 	}
 };
 
-var index = {
-  Carousel,
-  Slide
-};
-
-export default index;
+export { Carousel, Slide };
 //# sourceMappingURL=index.js.map
